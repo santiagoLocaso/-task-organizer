@@ -7,11 +7,19 @@ const groups = [
 
 const tasks = [
     {
-        name: 'Cocina',
+        name: 'Cocina Mediodia',
         icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2H8l-4 9h16l-4-9Z"/><path d="M12 11v9"/><path d="M4 11v9"/><path d="M20 11v9"/><path d="M2 20h20"/></svg>`
     },
     {
-        name: 'Lavado de Platos',
+        name: 'Lavado de Platos Mediodia',
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>`
+    },
+    {
+        name: 'Cocina Noche',
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2H8l-4 9h16l-4-9Z"/><path d="M12 11v9"/><path d="M4 11v9"/><path d="M20 11v9"/><path d="M2 20h20"/></svg>`
+    },
+    {
+        name: 'Lavado de Platos Noche',
         icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>`
     },
     {
@@ -29,6 +37,34 @@ function shuffleArray(array) {
         [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
     }
     return newArray;
+}
+
+function generateSchedule() {
+    const dayTabs = document.getElementById('dayTabs');
+    dayTabs.innerHTML = ''; // Limpiar tabs previos
+    scheduleData = {}; // Resetear datos previos
+
+    for (let day = 1; day <= 7; day++) {
+        // Crear un botón para cada día
+        const tabButton = document.createElement('button');
+        tabButton.className = 'day-tab';
+        tabButton.textContent = `Día ${day}`;
+        tabButton.onclick = () => showDaySchedule(day);
+        dayTabs.appendChild(tabButton);
+
+        // Aleatorizar los grupos sin cambiar el orden de las tareas
+        const shuffledGroups = shuffleArray([...groups]);
+
+        // Asignar los grupos aleatorios a las tareas en orden fijo
+        scheduleData[day] = tasks.map((task, index) => ({
+            name: task.name,
+            icon: task.icon,
+            group: shuffledGroups[index % shuffledGroups.length] // Reparte los grupos aleatoriamente
+        }));
+    }
+
+    // Mostrar el primer día por defecto
+    showDaySchedule(1);
 }
 
 function generateSchedule() {
