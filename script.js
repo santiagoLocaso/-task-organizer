@@ -1,8 +1,8 @@
 const groups = [
-    ['Santi L', 'Toby'],
-    ['Santi R', 'Joaco'],
-    ['Guada', 'Flor'],
-    ['Pili', 'Manu']
+    'Santi L', 'Toby',
+    'Santi R', 'Joaco',
+    'Guada', 'Flor',
+    'Pili', 'Manu'
 ];
 
 const tasks = [
