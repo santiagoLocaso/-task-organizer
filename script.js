@@ -1,7 +1,7 @@
 const groups = [
     ['Santi L', 'Toby'],
     ['Santi R', 'Joaco'],
-    ['Guada', Pili'],
+    ['Guada', 'Pili'],
     ['Flor', 'Manu']
 ];
 
